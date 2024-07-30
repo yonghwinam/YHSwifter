@@ -1,6 +1,12 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+//
+//  YHSwifter.swift
+//
+//
+//  Created by Yonghwi on 7/30/24.
+//
 
-public func foo() {
-    print("foo")
+import Foundation
+
+open class YHSwifter: NSObject {
+    
 }
