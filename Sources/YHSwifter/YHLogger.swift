@@ -38,9 +38,9 @@ public func YHWarningLog(_ message: Any?, functionName: StaticString = #function
     let className = fileName.lastPathComponent
 #if DEBUG
     if message != nil {
-        print(" ⚠️ \(className) - \(lineNumber) - \(functionName)> \(message!)")
+        print(" ⚠️ \(className):\(lineNumber) - \(functionName)> \(message!)")
     } else {
-        print(" ⚠️ \(className) \(lineNumber)>")
+        print(" ⚠️ \(className):\(lineNumber)>")
     }
 #endif
 }
@@ -49,9 +49,9 @@ public func YHErrorLog(_ message: Any?, functionName: StaticString = #function, 
     let className = fileName.lastPathComponent
 #if DEBUG
     if message != nil {
-        print(" ❌ \(className) - \(lineNumber) - \(functionName)> \(message!)")
+        print(" ❌ \(className):\(lineNumber) - \(functionName)> \(message!)")
     } else {
-        print(" ❌ \(className) \(lineNumber)>")
+        print(" ❌ \(className):\(lineNumber)>")
     }
 #endif
 }
