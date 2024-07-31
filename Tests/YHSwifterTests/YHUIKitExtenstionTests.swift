@@ -24,4 +24,30 @@ struct YHUIKitExtenstionTests {
         
         #expect(resizedImage?.size == otherSize)
     }
+    
+    @Test(arguments: [40, 278])
+    func UIImage_resizeBy(width: CGFloat) async throws {
+        let uiImage = UIImage(named: "img1.jpg", in: Bundle.module, compatibleWith: nil)
+        YHDebugLog("image size: \(uiImage!.size)")
+        let imageRatio = String(format: "%.3f", uiImage!.size.height / uiImage!.size.width)
+        YHDebugLog("image ratio: \(imageRatio)")
+        
+        let resizedImage = uiImage?.resizedBy(width: width)
+        YHDebugLog("resize image size: \(resizedImage!.size)")
+        let resizedRatio = String(format: "%.3f", resizedImage!.size.height / resizedImage!.size.width)
+        YHDebugLog("resized image ratio: \(resizedRatio)")
+    }
+    
+    @Test(arguments: [26, 176])
+    func UIImage_resizeBy(height: CGFloat) async throws {
+        let uiImage = UIImage(named: "img1.jpg", in: Bundle.module, compatibleWith: nil)
+        YHDebugLog("image size: \(uiImage!.size)")
+        let imageRatio = String(format: "%.3f", uiImage!.size.height / uiImage!.size.width)
+        YHDebugLog("image ratio: \(imageRatio)")
+        
+        let resizedImage = uiImage?.resizedBy(height: height)
+        YHDebugLog("resize image size: \(resizedImage!.size)")
+        let resizedRatio = String(format: "%.3f", resizedImage!.size.height / resizedImage!.size.width)
+        YHDebugLog("resized image ratio: \(resizedRatio)")
+    }
 }
