@@ -19,6 +19,7 @@ struct YHSwifterTests {
 
     @Test func allCookies() async throws {
         YHDebugLog(YHAllCookies())
+        #expect(YHAllCookies() != nil)
     }
 
 }

@@ -28,3 +28,18 @@ extension String {
         return !passwordTest.evaluate(with: self)
     }
 }
+
+extension Data {
+    mutating func appendString(_ string: String) {
+        self.append(string.data(using: .utf8)!)
+    }
+}
+
+extension Dictionary {
+    func toJsonString() -> String {
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted) else { return "" }
+        guard let jsonString = String(data: data, encoding: .utf8) else { return "" }
+        
+        return jsonString
+    }
+}

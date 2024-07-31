@@ -6,12 +6,13 @@
 //
 
 import Testing
+import Foundation
 @testable import YHSwifter
 
 struct YHFoundationExtentionsTests {
 
     @Test(arguments: [" hello ", "\n swifter \n"])
-    func trimmedString(str: String) async throws {
+    func String_trimmed(str: String) async throws {
         let trimmedStr = str.trimmed()
         YHDebugLog(trimmedStr)
         
@@ -24,7 +25,7 @@ struct YHFoundationExtentionsTests {
     }
     
     @Test(arguments: 0...4)
-    func characterInString(at index: Int) async throws {
+    func String_character(at index: Int) async throws {
         let string = "hello"
         let secondCharacter = string.character(at: index)
         YHDebugLog(secondCharacter)
@@ -44,5 +45,18 @@ struct YHFoundationExtentionsTests {
             break
         }
         
+    }
+    
+    @Test(arguments: [
+        ["key1": "value1"], 
+        ["key2": 2222, "key3": "333"]
+    ])
+    func Dictionay_toJsonString(dic: Dictionary<String, Any>) async throws {
+        let jsonString = dic.toJsonString()
+        YHDebugLog(jsonString)
+        guard let jsonData = jsonString.data(using: .utf8) else { return; }
+        let jsonObject = try JSONSerialization.jsonObject(with: jsonData)
+        
+        #expect(JSONSerialization.isValidJSONObject(jsonObject))
     }
 }
