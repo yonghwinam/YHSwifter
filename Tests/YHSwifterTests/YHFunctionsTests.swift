@@ -10,5 +10,10 @@ import Foundation
 @testable import YHSwifter
 
 struct YHFunctionsTests {
-
+    @Test func environmentValue() async throws {
+        let envValue = YHEnvironmentValue("ENV_KEY")
+        YHDebugLog("env value: \(envValue)")
+        
+        #expect(envValue == "env value")
+    }
 }
