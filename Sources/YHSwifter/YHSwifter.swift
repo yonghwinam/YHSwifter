@@ -123,6 +123,17 @@ open class YHSwifter: NSObject {
         HTTPCookieStorage.shared.setCookie(cookie)
     }
     
+    /// Deletes the specified name cookie  from the cookie storage.
+    public func deleteCookie(by name: String) {
+        let allCookies = allCookies()
+        
+        for cookie in allCookies {
+            if name == cookie.name {
+                HTTPCookieStorage.shared.deleteCookie(cookie)
+            }
+        }
+    }
+    
     public func asyncAfter(_ delay: TimeInterval, execute: @Sendable @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: execute)
     }

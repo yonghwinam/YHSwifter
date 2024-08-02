@@ -34,7 +34,7 @@ struct YHSwifterTests {
         }
     }
     
-    @Test func makeCookie() async throws {
+    @Test func httpCookieHanlder() async throws {
         do {
             let cookie = try swifter.makeCookie([
                 .domain: "https://www.example.com",
@@ -51,8 +51,16 @@ struct YHSwifterTests {
             YHErrorLog(e.type)
         }
         
-        let allCookies = swifter.allCookies()
-        YHDebugLog("all cookies: \(allCookies)")
+        var allCookies = swifter.allCookies()
+        YHDebugLog("all cookies after add cookie: \(allCookies)")
+        #expect(allCookies.count == 1)
+        
+        swifter.deleteCookie(by: "sample cookie")
+//        swifter.removeAllCookies()
+        allCookies = swifter.allCookies()
+        YHDebugLog("all cookies after delete cookie: \(allCookies)")
+        
+        #expect(allCookies.count == 0)
         
     }
 
