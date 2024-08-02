@@ -71,7 +71,7 @@ open class YHSwifter: NSObject {
         }
     }
     
-    /// Creates an HTTP cookie instance with the given cookie properties.
+    /// Creates an HTTP cookie instance with the given cookie properties and set to HTTPCookieStorage
     /// Required properties: name, value, domain or originURL
     public func makeCookie(_ properties: [HTTPCookiePropertyKey: Any]) throws -> HTTPCookie {
         
@@ -116,6 +116,11 @@ open class YHSwifter: NSObject {
         }
         
         return cookie
+    }
+    
+    /// Set cookie to shared HTTPCookieStorage.
+    public func addCookie(_ cookie: HTTPCookie) {
+        HTTPCookieStorage.shared.setCookie(cookie)
     }
     
     public func asyncAfter(_ delay: TimeInterval, execute: @Sendable @escaping () -> Void) {

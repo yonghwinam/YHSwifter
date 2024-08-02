@@ -43,11 +43,16 @@ struct YHSwifterTests {
                 .value: "123131321",
                 .path: "/"
             ])
-            YHDebugLog("cookie: \(cookie)")
+            
+            swifter.addCookie(cookie)
+            
         } catch let e as YHError {
             YHErrorLog(e.desc)
             YHErrorLog(e.type)
         }
+        
+        let allCookies = swifter.allCookies()
+        YHDebugLog("all cookies: \(allCookies)")
         
     }
 
