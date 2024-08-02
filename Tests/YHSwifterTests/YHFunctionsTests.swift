@@ -18,6 +18,6 @@ struct YHFunctionsTests {
         let envValue = YHEnvironmentValue("ENV_KEY")
         YHDebugLog("env value: \(envValue)")
         
-        #expect(envValue == "env value")
+        #expect(envValue == "Hello Swifter")
     }
 }

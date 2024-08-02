@@ -152,4 +152,17 @@ open class YHSwifter: NSObject {
         
         return (value * ratio)
     }
+    
+    
+    @MainActor
+    /// Height of the status bar.
+    public func statusBarHeight() -> CGFloat {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        guard let height = windowScenes?.statusBarManager?.statusBarFrame.height as? CGFloat else {
+            return 44.0
+        }
+        
+        return height
+    }
 }

@@ -63,4 +63,9 @@ struct YHSwifterTests {
         #expect(allCookies.count == 0)
         
     }
+    
+    @Test func layout() async throws {
+        let statusBarHeight = await swifter.statusBarHeight()
+        YHDebugLog("status bar height:  \(statusBarHeight)")
+    }
 }
