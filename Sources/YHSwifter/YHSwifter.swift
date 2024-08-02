@@ -65,7 +65,7 @@ open class YHSwifter: NSObject {
         return allCookies
     }
     
-    public func removeAllCookies() {
+    public func deleteAllCookies() {
         for cookie in allCookies() {
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
