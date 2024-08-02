@@ -49,9 +49,9 @@ struct YHFoundationExtentionsTests {
     
     @Test(arguments: [
         ["key1": "value1"], 
-        ["key2": 2222, "key3": "333"]
+        ["key2": "2222", "key3": "333"]
     ])
-    func Dictionay_toJsonString(dic: Dictionary<String, Any>) async throws {
+    func Dictionay_toJsonString(dic: Dictionary<String, String>) async throws {
         let jsonString = dic.toJsonString()
         YHDebugLog(jsonString)
         guard let jsonData = jsonString.data(using: .utf8) else { return; }

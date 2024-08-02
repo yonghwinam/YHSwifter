@@ -22,6 +22,6 @@ public func YHAllCookies() -> [HTTPCookie] {
 }
 
 /// Submits a work item to a dispatch queue for asynchronous execution after a specified time.
-public func YHAyncAfter(_ delay: TimeInterval, closure: @escaping () -> Void) {
+public func YHAyncAfter(_ delay: TimeInterval, closure: @Sendable @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: closure)
 }

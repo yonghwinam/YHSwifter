@@ -2,8 +2,9 @@ import Testing
 @testable import YHSwifter
 
 struct YHSwifterTests {
+    let swifter = YHSwifter()
+    
     @Test func logger() {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
         YHDebugLog("This debug log.")
         YHInfoLog("This is info log.")
         YHWarningLog("This is warning log.")
@@ -11,9 +12,26 @@ struct YHSwifterTests {
     }
 
     @Test func bundleInfo() {
-        let swifter = YHSwifter()
-        YHDebugLog(swifter.appVersion)
-        YHDebugLog(swifter.marketVersion())
+        let appVersion = swifter.appVersion()
+        YHDebugLog("appVersion: \(appVersion)")
+        
+        let buildVersion = swifter.buildVersion()
+        YHDebugLog("buildVersion: \(buildVersion)")
+        
+        let marketingVersion = swifter.marketVersion()
+        YHDebugLog("marketingVersion: \(marketingVersion)")
+    }
+    
+    @Test func environimentValue() async throws {
+        let envValue = swifter.environmentValue("ENV_KEY")
+        YHDebugLog("ENV Value: \(envValue)")
+        #expect(envValue == "Hello Swifter")
+    }
+    
+    @Test func asynAfter() {
+        swifter.asyncAfter(3.0) {
+            YHDebugLog("This message printing after 3s.")
+        }
     }
 
 

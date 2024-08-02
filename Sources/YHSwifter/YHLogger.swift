@@ -7,10 +7,6 @@
 
 import Foundation
 
-let LOG_REQUEST       =       true
-let LOG_RESPONSE      =       false
-let LOG_PUSH_ID       =       false
-
 // MARK: - Debug Log
 public func YHDebugLog(_ message: Any?, functionName: StaticString = #function, fileName: NSString = #file, lineNumber: Int = #line, userInfo: [String: Any] = [:]) {
     let className = fileName.lastPathComponent

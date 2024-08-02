@@ -55,7 +55,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "ENV_KEY"
-            value = "env value"
+            value = "Hello Swifter"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
