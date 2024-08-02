@@ -59,4 +59,12 @@ struct YHFoundationExtentionsTests {
         
         #expect(JSONSerialization.isValidJSONObject(jsonObject))
     }
+    
+    @Test func Data_toJsonString() async throws {
+        let dic = ["key1": "value1", "key2": "value2"]
+        
+        let dicData = try? JSONSerialization.data(withJSONObject: dic)
+        let jsonString = dicData?.toJsonString()
+        YHDebugLog("data to json string: \(jsonString ?? "")")
+    }
 }

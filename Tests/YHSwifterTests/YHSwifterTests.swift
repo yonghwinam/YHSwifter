@@ -56,17 +56,11 @@ struct YHSwifterTests {
         #expect(allCookies.count == 1)
         
         swifter.deleteCookie(by: "sample cookie")
-//        swifter.deleteAllCookies()
+        //        swifter.deleteAllCookies()
         allCookies = swifter.allCookies()
         YHDebugLog("all cookies after delete cookie: \(allCookies)")
         
         #expect(allCookies.count == 0)
         
     }
-
-    @Test func allCookies() async throws {
-        YHDebugLog(YHAllCookies())
-        #expect(YHAllCookies() != nil)
-    }
-
 }

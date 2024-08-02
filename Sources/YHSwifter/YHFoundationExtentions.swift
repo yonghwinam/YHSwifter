@@ -30,12 +30,25 @@ extension String {
 }
 
 extension Data {
-    mutating func appendString(_ string: String) {
+    
+    /// Append string to data.
+    mutating public func appendString(_ string: String) {
         self.append(string.data(using: .utf8)!)
+    }
+    
+    /// Data to json string.
+    public func toJsonString() -> String {
+        guard let json = try? JSONSerialization.jsonObject(with: self) else { return "" }
+        let prettyJsonData = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        let jsonString = String(data: prettyJsonData, encoding: .utf8) ?? ""
+        
+        return jsonString
     }
 }
 
 extension Dictionary {
+    
+    /// Dictionay to json string.
     func toJsonString() -> String {
         guard let data = try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted) else { return "" }
         guard let jsonString = String(data: data, encoding: .utf8) else { return "" }

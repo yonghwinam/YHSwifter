@@ -10,6 +10,7 @@ import UIKit
 
 struct YHError: Error {
     enum type  {
+        case invalidJsonData
         case failToMakeHTTPCookie
         case missingRequiredHTTPCookiePropertie(String)
     }
