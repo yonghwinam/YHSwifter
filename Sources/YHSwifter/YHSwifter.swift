@@ -65,6 +65,59 @@ open class YHSwifter: NSObject {
         return allCookies
     }
     
+    public func removeAllCookies() {
+        for cookie in allCookies() {
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
+    }
+    
+    /// Creates an HTTP cookie instance with the given cookie properties.
+    /// Required properties: name, value, domain or originURL
+    public func makeCookie(_ properties: [HTTPCookiePropertyKey: Any]) throws -> HTTPCookie {
+        
+        guard let cookie = HTTPCookie(properties: properties) else {
+            var validKeys = [String]()
+            
+            for key in properties.keys {
+                validKeys.append(key.rawValue)
+            }
+            
+            YHDebugLog(validKeys)
+            
+            if !validKeys.contains("Name") {
+                throw YHError(
+                    type: .missingRequiredHTTPCookiePropertie("HTTPCookiePropertyKey.name"),
+                    desc: "Required 'HTTPCookiePropertyKey.name' propertie."
+                )
+            }
+            
+            if !validKeys.contains("Value") {
+                throw YHError(
+                    type: .missingRequiredHTTPCookiePropertie("HTTPCookiePropertyKey.value"),
+                    desc: "Required 'HTTPCookiePropertyKey.value' propertie."
+                )
+            }
+            
+            if !validKeys.contains("Path") {
+                throw YHError(
+                    type: .missingRequiredHTTPCookiePropertie("HTTPCookiePropertyKey.path"),
+                    desc: "Required 'HTTPCookiePropertyKey.path' propertie."
+                )
+            }
+            
+            if !validKeys.contains("OriginURL") {
+                throw YHError(
+                    type: .missingRequiredHTTPCookiePropertie("HTTPCookiePropertyKey.originURL"),
+                    desc: "Required 'HTTPCookiePropertyKey.originURL' propertie."
+                )
+            }
+            
+            throw YHError(type: .failToMakeHTTPCookie, desc: "Fail to make HTTPCookie.")
+        }
+        
+        return cookie
+    }
+    
     public func asyncAfter(_ delay: TimeInterval, execute: @Sendable @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: execute)
     }

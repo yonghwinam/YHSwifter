@@ -33,7 +33,23 @@ struct YHSwifterTests {
             YHDebugLog("This message printing after 3s.")
         }
     }
-
+    
+    @Test func makeCookie() async throws {
+        do {
+            let cookie = try swifter.makeCookie([
+                .domain: "https://www.example.com",
+                .originURL: "https://www.example.com",
+                .name: "sample cookie",
+                .value: "123131321",
+                .path: "/"
+            ])
+            YHDebugLog("cookie: \(cookie)")
+        } catch let e as YHError {
+            YHErrorLog(e.desc)
+            YHErrorLog(e.type)
+        }
+        
+    }
 
     @Test func allCookies() async throws {
         YHDebugLog(YHAllCookies())
