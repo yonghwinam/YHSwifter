@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 @testable import YHSwifter
 
+struct YHUser: Codable {
+    var name: String?
+    var age: Int?
+    var gender: String?
+}
+
 struct YHFunctionsTests {
     
     let swifter = YHSwifter()
