@@ -141,7 +141,7 @@ open class YHSwifter: NSObject {
     // MARK: - HTTP Client
     public func request<T: Decodable>(_ urlString: String,
                                       method: HTTPMethod = .post,
-                                      parameters: [String: Any],
+                                      parameters: [String: Any]? = nil,
                                       decoder: T.Type,
                                       headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         
@@ -185,7 +185,7 @@ open class YHSwifter: NSObject {
     }
     
     public func requestPOST<T: Decodable>(_ urlString: String,
-                                          parameters: [String: Any],
+                                          parameters: [String: Any]? = nil,
                                           decoder: T.Type,
                                           headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         return await request(urlString,
@@ -195,9 +195,9 @@ open class YHSwifter: NSObject {
     }
     
     public func requestPUT<T: Decodable>(_ urlString: String,
-                                          parameters: [String: Any],
-                                          decoder: T.Type,
-                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+                                         parameters: [String: Any]? = nil,
+                                         decoder: T.Type,
+                                         headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         return await request(urlString,
                        method: .put,
                        parameters: parameters,
@@ -205,9 +205,9 @@ open class YHSwifter: NSObject {
     }
     
     public func requestPATCH<T: Decodable>(_ urlString: String,
-                                          parameters: [String: Any],
-                                          decoder: T.Type,
-                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+                                           parameters: [String: Any]? = nil,
+                                           decoder: T.Type,
+                                           headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         return await request(urlString,
                              method: .patch,
                              parameters: parameters,
@@ -215,9 +215,9 @@ open class YHSwifter: NSObject {
     }
     
     public func requestDELETE<T: Decodable>(_ urlString: String,
-                                          parameters: [String: Any],
-                                          decoder: T.Type,
-                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+                                            parameters: [String: Any]? = nil,
+                                            decoder: T.Type,
+                                            headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         return await request(urlString,
                              method: .delete,
                              parameters: parameters,

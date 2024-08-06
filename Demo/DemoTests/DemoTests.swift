@@ -56,4 +56,15 @@ struct DemoTests {
         #expect(user != nil)
         YHDebugLog("last name: \(user!.lastName!)")
     }
+    
+    @Test(arguments: ["https://dummyjson.com/users/1"])
+    func requestDELETE(urlString: String) async throws {        
+        let response = await swifter.requestDELETE(urlString, parameters: nil, decoder: YHUser.self)
+        YHResponseLog(response)
+        #expect(response.statusCode == 200)
+        
+        let user = response.decodedResult
+        #expect(user?.isDeleted == true)
+        YHDebugLog("last name: \(user!.lastName!)")
+    }
 }

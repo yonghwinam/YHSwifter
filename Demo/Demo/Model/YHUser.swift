@@ -19,6 +19,7 @@ struct YHUser: Codable {
     case email
     case firstName
     case id
+      case isDeleted
   }
 
   var gender: String?
@@ -30,6 +31,7 @@ struct YHUser: Codable {
   var email: String?
   var firstName: String?
   var id: Int?
+    var isDeleted: Bool?
 
 
 
@@ -44,6 +46,7 @@ struct YHUser: Codable {
     email = try container.decodeIfPresent(String.self, forKey: .email)
     firstName = try container.decodeIfPresent(String.self, forKey: .firstName)
     id = try container.decodeIfPresent(Int.self, forKey: .id)
+      isDeleted = try container.decodeIfPresent(Bool.self, forKey: .isDeleted)
   }
 
 }
