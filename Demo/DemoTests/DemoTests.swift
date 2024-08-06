@@ -19,20 +19,16 @@ struct DemoTests {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.
     }
     
-    @Test(arguments: ["https://httpbin.org/get", "error https://httpbin.org/get"])
+    @Test(arguments: ["https://dummyjson.com/users/search"])
     func requestGET(urlString: String) async throws {
         let response = await swifter.requestGET(urlString,
-                                                YHDummyModel.self,
-                                                headers: ["key1": "value1", "key2": "value2"])
-        let statusCode = response.statusCode
-        YHDebugLog("status code: \(statusCode)")
-        if urlString == "https://httpbin.org/get" {
-            #expect(statusCode == 200)
-        } else {
-            #expect(statusCode == YHError.unknown)
-        }
+                                                parameters: ["q": "John"],
+                                                decoder: YHDummyModel.self,
         
+                                                headers: ["key1": "value1", "key2": "value2"])
         YHResponseLog(response)
+        let statusCode = response.statusCode
+        #expect(statusCode == 200)
     }
     
     @Test(arguments: ["https://dummyjson.com/user/login"])

@@ -138,6 +138,11 @@ open class YHSwifter: NSObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: execute)
     }
     
+    public func urlQuery(_ parameters: [String: Any]) -> String {
+        
+        return ""
+    }
+    
     // MARK: - HTTP Client
     public func request<T: Decodable>(_ urlString: String,
                                       method: HTTPMethod = .post,
@@ -225,7 +230,8 @@ open class YHSwifter: NSObject {
     }
     
     public func requestGET<T: Decodable>(_ urlString: String,
-                                         _ decoder: T.Type,
+                                         parameters: [String: Any]? = nil,
+                                         decoder: T.Type,
                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         var defaultHeaders = HTTPHeaders.default
         
@@ -237,6 +243,7 @@ open class YHSwifter: NSObject {
 
         let afRequest = AF.request(urlString,
                                    method: .get,
+                                   parameters: parameters,
                                    headers: defaultHeaders).validate()
         
         var response: YHHttpResponse<T>

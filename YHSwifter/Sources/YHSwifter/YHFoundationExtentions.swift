@@ -55,4 +55,13 @@ extension Dictionary {
         
         return jsonString
     }
+    
+    func toURLQuery() -> String {
+        var result = ""
+        for key in self.keys {
+            result += "\(key)=\(self[key]!)"
+        }
+        
+        return ""
+    }
 }
