@@ -36,4 +36,13 @@ struct DemoTests {
         
         YHResponseLog(response)
     }
+    
+    @Test(arguments: ["https://dummyjson.com/user/login"])
+    func requestPOST(urlString: String) async throws {
+        let parameters = ["username": "emilys", "password": "emilyspass", "expiresInMins": 30] as [String: Any]
+        
+        let response = await swifter.requestPOST(urlString, parameters: parameters, decoder: YHUser.self)
+        YHResponseLog(response)
+        #expect(response.statusCode == 200)
+    }
 }

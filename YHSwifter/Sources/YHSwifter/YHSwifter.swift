@@ -139,10 +139,12 @@ open class YHSwifter: NSObject {
     }
     
     // MARK: - HTTP Client
-    public func requestPOST<T: Decodable>(_ urlString: String,
-                                          parameters: [String: Any],
-                                          decoder: T.Type,
-                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+    public func request<T: Decodable>(_ urlString: String,
+                                      method: HTTPMethod = .post,
+                                      parameters: [String: Any],
+                                      decoder: T.Type,
+                                      headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+        
         var defaultHeaders = HTTPHeaders.default
         
         if headers != nil {
@@ -180,6 +182,17 @@ open class YHSwifter: NSObject {
         
         return response
     }
+    
+    public func requestPOST<T: Decodable>(_ urlString: String,
+                                          parameters: [String: Any],
+                                          decoder: T.Type,
+                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+        return await request(urlString,
+                       method: .post,
+                       parameters: parameters,
+                       decoder: decoder, headers: headers)
+    }
+    
     public func requestGET<T: Decodable>(_ urlString: String,
                                          _ decoder: T.Type,
                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
