@@ -145,19 +145,20 @@ open class YHSwifter: NSObject {
                                       decoder: T.Type,
                                       headers: [String: String]? = nil) async -> YHHttpResponse<T> {
         
-        var defaultHeaders = HTTPHeaders.default
+        var totalHeaders = HTTPHeaders.default
+        totalHeaders.update(name: "Platform", value: "iOS")
         
         if headers != nil {
             for key in headers!.keys {
-                defaultHeaders.update(name: key, value: headers![key]!)
+                totalHeaders.update(name: key, value: headers![key]!)
             }
         }
 
         let afRequest = AF.request(urlString,
-                                   method: .post,
+                                   method: method,
                                    parameters: parameters,
                                    encoding: JSONEncoding.prettyPrinted,
-                                   headers: defaultHeaders).validate()
+                                   headers: totalHeaders).validate()
         
         var response: YHHttpResponse<T>
         
@@ -191,6 +192,36 @@ open class YHSwifter: NSObject {
                        method: .post,
                        parameters: parameters,
                        decoder: decoder, headers: headers)
+    }
+    
+    public func requestPUT<T: Decodable>(_ urlString: String,
+                                          parameters: [String: Any],
+                                          decoder: T.Type,
+                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+        return await request(urlString,
+                       method: .put,
+                       parameters: parameters,
+                       decoder: decoder, headers: headers)
+    }
+    
+    public func requestPATCH<T: Decodable>(_ urlString: String,
+                                          parameters: [String: Any],
+                                          decoder: T.Type,
+                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+        return await request(urlString,
+                             method: .patch,
+                             parameters: parameters,
+                             decoder: decoder, headers: headers)
+    }
+    
+    public func requestDELETE<T: Decodable>(_ urlString: String,
+                                          parameters: [String: Any],
+                                          decoder: T.Type,
+                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+        return await request(urlString,
+                             method: .delete,
+                             parameters: parameters,
+                             decoder: decoder, headers: headers)
     }
     
     public func requestGET<T: Decodable>(_ urlString: String,

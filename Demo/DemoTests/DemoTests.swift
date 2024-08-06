@@ -17,8 +17,6 @@ struct DemoTests {
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        let jsonModel: Artwork = YHLoadJson("artworkDetail.json", inAsset: false)
-        YHDebugLog("jsonModel: \(jsonModel)")
     }
     
     @Test(arguments: ["https://httpbin.org/get", "error https://httpbin.org/get"])
@@ -44,5 +42,18 @@ struct DemoTests {
         let response = await swifter.requestPOST(urlString, parameters: parameters, decoder: YHUser.self)
         YHResponseLog(response)
         #expect(response.statusCode == 200)
+    }
+    
+    @Test(arguments: ["https://dummyjson.com/users/2"])
+    func requestPUT(urlString: String) async throws {
+        let parameters = ["lastName": "hello"] as [String: Any]
+        
+        let response = await swifter.requestPATCH(urlString, parameters: parameters, decoder: YHUser.self)
+        YHResponseLog(response)
+        #expect(response.statusCode == 200)
+        
+        let user = response.decodedResult
+        #expect(user != nil)
+        YHDebugLog("last name: \(user!.lastName!)")
     }
 }
