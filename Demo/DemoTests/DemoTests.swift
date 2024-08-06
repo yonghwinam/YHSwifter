@@ -7,6 +7,7 @@
 
 import Testing
 import Foundation
+import UIKit
 import YHSwifter
 
 @testable import Demo
@@ -23,8 +24,7 @@ struct DemoTests {
     func requestGET(urlString: String) async throws {
         let response = await swifter.requestGET(urlString,
                                                 parameters: ["q": "John"],
-                                                decoder: YHDummyModel.self,
-        
+                                                decoder: YHUser.self,
                                                 headers: ["key1": "value1", "key2": "value2"])
         YHResponseLog(response)
         let statusCode = response.statusCode
@@ -62,5 +62,24 @@ struct DemoTests {
         let user = response.decodedResult
         #expect(user?.isDeleted == true)
         YHDebugLog("last name: \(user!.lastName!)")
+    }
+    
+    @Test(arguments: ["https://httpbin.org/post"])
+    func requestMPFD(urlString: String) async throws {
+        let image = UIImage(named: "img1.jpg")
+        YHDebugLog(image!.pngData()!.count)
+        
+        
+        let parameters = ["file": image!.jpegData(compressionQuality: 1)!,
+                          "filename": Data("img.jpg".utf8)]
+        
+        let response = await swifter.requestMPFD(urlString,
+                                                 parameters: parameters,
+                                                 decoder: YHMultipartModel.self,
+                                                 headers: ["key1": "value1", "key2": "value2"]) { progress in
+            YHDebugLog("progress: \(progress)")
+        }
+        
+        YHResponseLog(response, false)
     }
 }

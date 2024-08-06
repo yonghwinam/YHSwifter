@@ -1,23 +1,23 @@
 //
 //  YHArgs.swift
 //
-//  Created by Yonghwi on 8/5/24
+//  Created by Yonghwi on 8/6/24
 //  Copyright (c) . All rights reserved.
 //
 
 import Foundation
 
-public struct YHArgs: Codable {
+struct YHArgs: Codable {
 
 //  enum CodingKeys: String, CodingKey {
 //
 //  }
-
-
-
-
-
-//  public init(from decoder: Decoder) throws {
+//
+//
+//
+//
+//
+//  init(from decoder: Decoder) throws {
 //    let container = try decoder.container(keyedBy: CodingKeys.self)
 //
 //  }

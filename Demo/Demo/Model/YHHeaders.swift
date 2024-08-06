@@ -1,40 +1,49 @@
 //
 //  YHHeaders.swift
 //
-//  Created by Yonghwi on 8/5/24
+//  Created by Yonghwi on 8/6/24
 //  Copyright (c) . All rights reserved.
 //
 
 import Foundation
 
-public struct YHHeaders: Codable {
+struct YHHeaders: Codable {
 
   enum CodingKeys: String, CodingKey {
+    case cacheControl = "Cache-Control"
     case xAmznTraceId = "X-Amzn-Trace-Id"
-    case acceptLanguage = "Accept-Language"
+    case acceptEncoding = "Accept-Encoding"
+    case contentLength = "Content-Length"
+    case host = "Host"
+    case contentType = "Content-Type"
     case userAgent = "User-Agent"
     case accept = "Accept"
-    case host = "Host"
-    case acceptEncoding = "Accept-Encoding"
+    case postmanToken = "Postman-Token"
   }
 
-  public var xAmznTraceId: String?
-  public var acceptLanguage: String?
-  public var userAgent: String?
-  public var accept: String?
-  public var host: String?
-  public var acceptEncoding: String?
+  var cacheControl: String?
+  var xAmznTraceId: String?
+  var acceptEncoding: String?
+  var contentLength: String?
+  var host: String?
+  var contentType: String?
+  var userAgent: String?
+  var accept: String?
+  var postmanToken: String?
 
 
 
-  public init(from decoder: Decoder) throws {
+  init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
+    cacheControl = try container.decodeIfPresent(String.self, forKey: .cacheControl)
     xAmznTraceId = try container.decodeIfPresent(String.self, forKey: .xAmznTraceId)
-    acceptLanguage = try container.decodeIfPresent(String.self, forKey: .acceptLanguage)
+    acceptEncoding = try container.decodeIfPresent(String.self, forKey: .acceptEncoding)
+    contentLength = try container.decodeIfPresent(String.self, forKey: .contentLength)
+    host = try container.decodeIfPresent(String.self, forKey: .host)
+    contentType = try container.decodeIfPresent(String.self, forKey: .contentType)
     userAgent = try container.decodeIfPresent(String.self, forKey: .userAgent)
     accept = try container.decodeIfPresent(String.self, forKey: .accept)
-    host = try container.decodeIfPresent(String.self, forKey: .host)
-    acceptEncoding = try container.decodeIfPresent(String.self, forKey: .acceptEncoding)
+    postmanToken = try container.decodeIfPresent(String.self, forKey: .postmanToken)
   }
 
 }

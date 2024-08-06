@@ -270,6 +270,44 @@ open class YHSwifter: NSObject {
         return response
     }
     
+    public func requestMPFD<T: Decodable>(_ urlString: String,
+                                          parameters: [String: Data],
+                                          decoder: T.Type,
+                                          headers: [String: String]? = nil,
+                                          progress: ((Int) -> Void)? = nil) async -> YHHttpResponse<T> {
+        let afResponse = await AF.upload(multipartFormData: { multipartFormData in
+            _ = parameters.map({ multipartFormData.append($1, withName: $0)})
+            
+        }, to: urlString)
+            .uploadProgress { value in
+                if progress != nil {
+                    progress!(Int(value.fractionCompleted * 100))
+                }
+            }
+            .serializingDecodable(decoder).response
+
+        var response: YHHttpResponse<T>
+        
+        switch afResponse.result {
+        case .success(let decodedResult):
+            response = YHHttpResponse(statusCode: afResponse.response?.statusCode ?? YHError.unknown,
+                                      result: afResponse.data,
+                                      decodedResult: decodedResult,
+                                      request: afResponse.request,
+                                      response: afResponse.response,
+                                      error: nil)
+        case .failure(let error):
+            response = YHHttpResponse(statusCode: afResponse.response?.statusCode ?? YHError.unknown,
+                                      result: nil,
+                                      decodedResult: nil,
+                                      request: afResponse.request,
+                                      response: afResponse.response,
+                                      error: YHError(type: .invalidRequest, desc: error.localizedDescription))
+        }
+        
+        return response
+    }
+    
     // MARK: - Layout Methods
     @MainActor
     public func wratio(_ value: CGFloat) -> CGFloat {
