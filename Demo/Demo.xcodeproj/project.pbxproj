@@ -38,9 +38,9 @@
 		B035635B2C60A0B5001FFCCF /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				YHArgs.swift,
-				YHDummyModel.swift,
-				YHHeaders.swift,
+				Model/YHArgs.swift,
+				Model/YHDummyModel.swift,
+				Model/YHHeaders.swift,
 			);
 			target = B080F9E92C5CD22A00911890 /* DemoTests */;
 		};

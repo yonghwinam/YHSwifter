@@ -139,6 +139,47 @@ open class YHSwifter: NSObject {
     }
     
     // MARK: - HTTP Client
+    public func requestPOST<T: Decodable>(_ urlString: String,
+                                          parameters: [String: Any],
+                                          decoder: T.Type,
+                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
+        var defaultHeaders = HTTPHeaders.default
+        
+        if headers != nil {
+            for key in headers!.keys {
+                defaultHeaders.update(name: key, value: headers![key]!)
+            }
+        }
+
+        let afRequest = AF.request(urlString,
+                                   method: .post,
+                                   parameters: parameters,
+                                   encoding: JSONEncoding.prettyPrinted,
+                                   headers: defaultHeaders).validate()
+        
+        var response: YHHttpResponse<T>
+        
+        let afResponse = await afRequest.serializingDecodable(decoder).response
+            
+        switch afResponse.result {
+        case .success(let decodedResult):
+            response = YHHttpResponse(statusCode: afResponse.response?.statusCode ?? YHError.unknown,
+                                      result: afResponse.data,
+                                      decodedResult: decodedResult,
+                                      request: afResponse.request,
+                                      response: afResponse.response,
+                                      error: nil)
+        case .failure(let error):
+            response = YHHttpResponse(statusCode: afResponse.response?.statusCode ?? YHError.unknown,
+                                      result: nil,
+                                      decodedResult: nil,
+                                      request: afResponse.request,
+                                      response: afResponse.response,
+                                      error: YHError(type: .invalidRequest, desc: error.localizedDescription))
+        }
+        
+        return response
+    }
     public func requestGET<T: Decodable>(_ urlString: String,
                                          _ decoder: T.Type,
                                          headers: [String: String]? = nil) async -> YHHttpResponse<T> {
@@ -150,8 +191,9 @@ open class YHSwifter: NSObject {
             }
         }        
 
-        let afRequest = AF.request(urlString, method: .get,
-                                 headers: defaultHeaders).validate()
+        let afRequest = AF.request(urlString,
+                                   method: .get,
+                                   headers: defaultHeaders).validate()
         
         var response: YHHttpResponse<T>
         

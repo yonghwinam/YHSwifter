@@ -64,6 +64,7 @@ public func YHResponseLog<T: Decodable>(_ response: YHHttpResponse<T>?,
         let method = response?.request?.httpMethod ?? YHMessageUnknown
         let url = response?.request?.url?.absoluteString ?? YHMessageUnknown
         let headers = response?.request?.allHTTPHeaderFields?.toJsonString() ?? YHMessageNone
+        let statusCode = response?.statusCode ?? YHError.unknown
         let body = response?.request?.httpBody?.toJsonString() ?? YHMessageNone
         
         if response!.error != nil {
@@ -77,7 +78,7 @@ public func YHResponseLog<T: Decodable>(_ response: YHHttpResponse<T>?,
             } else {
                 result = YHMessageDisablePrintResult
             }
-            print(" 🛜 \(className):\(lineNumber) - \(functionName)> \(method) \(url)\nHeaders: \(headers)\nBody: \(body)\nResult: \(result)")
+            print(" 🛜 \(className):\(lineNumber) - \(functionName)> \(method) \(url)\nHeaders: \(headers)\nBody: \(body)\nStatus Code: \(statusCode)\nResult: \(result)")
         }
     }
 #endif
