@@ -5,7 +5,7 @@
       location = "group:YHSwifter.xcworkspace">
    </FileRef>
    <FileRef
-      location = "group:Packages">
+      location = "group:YHSwifter">
    </FileRef>
    <FileRef
       location = "group:Demo/Demo.xcodeproj">

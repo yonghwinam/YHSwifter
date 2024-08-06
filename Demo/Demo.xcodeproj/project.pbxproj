@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B080FA182C5CD29E00911890 /* YHSwifter in Frameworks */ = {isa = PBXBuildFile; productRef = B080FA172C5CD29E00911890 /* YHSwifter */; };
+		B09A9B202C61BA0B00C48FF4 /* YHSwifter in Frameworks */ = {isa = PBXBuildFile; productRef = B09A9B1F2C61BA0B00C48FF4 /* YHSwifter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09A9B202C61BA0B00C48FF4 /* YHSwifter in Frameworks */,
 				B080FA182C5CD29E00911890 /* YHSwifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +120,7 @@
 			name = Demo;
 			packageProductDependencies = (
 				B080FA172C5CD29E00911890 /* YHSwifter */,
+				B09A9B1F2C61BA0B00C48FF4 /* YHSwifter */,
 			);
 			productName = Demo;
 			productReference = B080F9DA2C5CD22900911890 /* Demo.app */;
@@ -202,7 +205,7 @@
 			);
 			mainGroup = B080F9D12C5CD22900911890;
 			packageReferences = (
-				B080FA162C5CD29E00911890 /* XCLocalSwiftPackageReference "../Packages" */,
+				B09A9B1E2C61BA0B00C48FF4 /* XCLocalSwiftPackageReference "../YHSwifter" */,
 			);
 			productRefGroup = B080F9DB2C5CD22900911890 /* Products */;
 			projectDirPath = "";
@@ -570,14 +573,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		B080FA162C5CD29E00911890 /* XCLocalSwiftPackageReference "../Packages" */ = {
+		B09A9B1E2C61BA0B00C48FF4 /* XCLocalSwiftPackageReference "../YHSwifter" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../Packages;
+			relativePath = ../YHSwifter;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		B080FA172C5CD29E00911890 /* YHSwifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = YHSwifter;
+		};
+		B09A9B1F2C61BA0B00C48FF4 /* YHSwifter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = YHSwifter;
 		};
