@@ -39,6 +39,7 @@ public struct YHHttpResponse<T: Decodable> {
 
 public struct YHError: Error {
     public enum type: Sendable{
+        case objectIsNil(String)
         case invalidRequest
         case invalidURLString
         case invalidJsonData
@@ -49,5 +50,10 @@ public struct YHError: Error {
     public let type: type
     public let desc: String
     public static let unknown = -99999
+    
+    public init(type: type, desc: String) {
+        self.type = type
+        self.desc = desc
+    }
 }
 
