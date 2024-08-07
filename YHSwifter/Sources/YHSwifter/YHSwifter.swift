@@ -271,12 +271,21 @@ open class YHSwifter: NSObject {
     }
     
     public func requestMPFD<T: Decodable>(_ urlString: String,
-                                          parameters: [String: Data],
+                                          name: String,
+                                          fileName: String,
+                                          fileData: Data,
+                                          mimeType: String,
+                                          parameters: [String: String]? = nil,
                                           decoder: T.Type,
                                           headers: [String: String]? = nil,
                                           progress: ((Int) -> Void)? = nil) async -> YHHttpResponse<T> {
         let afResponse = await AF.upload(multipartFormData: { multipartFormData in
-            _ = parameters.map({ multipartFormData.append($1, withName: $0)})
+//            _ = parameters.map({ multipartFormData.append($1, withName: $0)})
+            multipartFormData.append(fileData, withName: name, fileName: fileName, mimeType: mimeType)
+            
+            if parameters != nil {
+                _ = parameters!.map({ multipartFormData.append(Data($1.utf8), withName: $0) })
+            }            
             
         }, to: urlString)
             .uploadProgress { value in

@@ -66,20 +66,39 @@ struct DemoTests {
     
     @Test(arguments: ["https://httpbin.org/post"])
     func requestMPFD(urlString: String) async throws {
-        let image = UIImage(named: "img1.jpg")
+        let fileName = "img2.jpg"
+        let image = UIImage(named: fileName)
         YHDebugLog(image!.pngData()!.count)
         
-        
-        let parameters = ["file": image!.jpegData(compressionQuality: 1)!,
-                          "filename": Data("img.jpg".utf8)]
+        let response = await swifter.requestMPFD(urlString,
+                                                 name: "file",
+                                                 fileName: fileName,
+                                                 fileData: image!.jpegData(compressionQuality: 0.5)!,
+                                                 mimeType: "image/jpeg",
+                                                 parameters: nil,
+                                                 decoder: YHCartoonizerModel.self) { progress in
+            YHDebugLog("progress: \(progress)")
+        }
+            
+        YHResponseLog(response, false)
+    }
+    
+    @Test func requestCartoonizer() async throws {
+        let urlString = "https://nutm4narnj.execute-api.us-east-1.amazonaws.com/Prod/cartoonizer"
+        guard let imageData = UIImage(named: "fhd.jpg")?.jpegData(compressionQuality: 0.7) else { return }
         
         let response = await swifter.requestMPFD(urlString,
-                                                 parameters: parameters,
-                                                 decoder: YHMultipartModel.self,
-                                                 headers: ["key1": "value1", "key2": "value2"]) { progress in
+                                                 name: "file",
+                                                 fileName: "fhd.jpg",
+                                                 fileData: imageData,
+                                                 mimeType: "image/jpeg",
+                                                 parameters: ["style": "s001"],
+                                                 decoder: YHCartoonizerModel.self) { progress in
             YHDebugLog("progress: \(progress)")
         }
         
-        YHResponseLog(response, false)
+        YHResponseLog(response)
+        guard let cartoonizer = response.decodedResult else { return }
+        YHDebugLog("artwork url: \(cartoonizer.artworkUrl ?? YHMessageUnknown)")
     }
 }
