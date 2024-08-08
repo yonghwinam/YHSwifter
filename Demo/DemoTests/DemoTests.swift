@@ -101,4 +101,10 @@ struct DemoTests {
         guard let cartoonizer = response.decodedResult else { return }
         YHDebugLog("artwork url: \(cartoonizer.artworkUrl ?? YHMessageUnknown)")
     }
+    
+    @Test func dictionaryToURLQuery() async throws {
+        let dic = ["key1": "value1", "key2": "value2", "key3": "value3"]
+        let result = dic.toURLQuery()
+        YHDebugLog("result: \(result)")
+    }
 }

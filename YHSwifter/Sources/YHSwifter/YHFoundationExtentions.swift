@@ -9,10 +9,13 @@ import Foundation
 import UIKit
 
 extension String {
+    /// Returns a new string made by removing from both ends of
+    /// the `String` characters contained `white spaces` and `New lines`
     public func trimmed() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    /// Returns string character that is the specified distance from the given index.
     public func character(at index: Int) -> String {
         guard index >= 0 && index < self.count else { return "" }
         let startIndex = self.index(self.startIndex, offsetBy: index)
@@ -45,6 +48,7 @@ extension Data {
         return jsonString
     }
     
+    /// Data to UIImage
     public func toUIImage() throws -> UIImage {
         guard let uiImage = UIImage(data: self) else {
             throw YHError(type: .failConvertedDataToUIImage, desc: "Fail to converted data to UIImage!")
@@ -57,19 +61,22 @@ extension Data {
 extension Dictionary {
     
     /// Dictionay to json string.
-    func toJsonString() -> String {
+    public func toJsonString() -> String {
         guard let data = try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted) else { return "" }
         guard let jsonString = String(data: data, encoding: .utf8) else { return "" }
         
         return jsonString
     }
     
-    func toURLQuery() -> String {
+    /// Convert dictionary object to url query string.
+    public func toURLQuery() -> String {
         var result = ""
         for key in self.keys {
-            result += "\(key)=\(self[key]!)"
+            result += "\(key)=\(self[key]!)&"
         }
         
-        return ""
+        result.removeLast()
+        
+        return result
     }
 }
