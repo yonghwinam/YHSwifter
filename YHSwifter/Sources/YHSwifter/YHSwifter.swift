@@ -167,6 +167,19 @@ open class YHSwifter: NSObject {
         return String(format: "%.\(decimalCount)f", float!)
     }
     
+    public func viewCount(_ count: Int) -> String {
+        switch count {
+        case 1_000_000_000...:
+            return String(format: "%.1fB", Double(count) / 1_000_000_000).replacingOccurrences(of: ".0", with: "")
+        case 1_000_000...:
+            return String(format: "%.1fM", Double(count) / 1_000_000).replacingOccurrences(of: ".0", with: "")
+        case 1_000...:
+            return String(format: "%.1fK", Double(count) / 1_000).replacingOccurrences(of: ".0", with: "")
+        default:
+            return "\(count)"
+        }
+    }
+    
     // MARK: - HTTP Client
     public func request<T: Decodable>(_ urlString: String,
                                       method: HTTPMethod = .post,

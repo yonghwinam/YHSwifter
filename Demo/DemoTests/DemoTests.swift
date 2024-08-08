@@ -136,4 +136,22 @@ struct DemoTests {
         YHDebugLog(swifter.toString(floatNo))
         #expect(swifter.toString(floatNo) == "\(floatNo)")
     }
+    
+    @Test func viewCount() async throws {
+        let views1 = swifter.viewCount(123)
+        YHDebugLog(views1)
+        #expect(views1 == "123")
+        
+        let views2 = swifter.viewCount(1234)
+        YHDebugLog(views2)
+        #expect(views2 == "1.2K")
+        
+        let views3 = swifter.viewCount(1234567)
+        YHDebugLog(views3)
+        #expect(views3 == "1.2M")
+        
+        let views4 = swifter.viewCount(1234567890)
+        YHDebugLog(views4)
+        #expect(views4 == "1.2B")
+    }
 }
