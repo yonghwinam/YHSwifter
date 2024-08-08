@@ -9,7 +9,16 @@ import Foundation
 import UIKit
 import Alamofire
 
+// Enforce minimum Swift version for all platforms and build systems.
+#if swift(<5.7.1)
+#error("Alamofire doesn't support Swift versions below 5.7.1.")
+#endif
+
+nonisolated(unsafe) public let YH = YHSwifter.default
+
 open class YHSwifter: NSObject {
+    
+    nonisolated(unsafe) public static let `default` = YHSwifter()
     
     // MARK: - Global Variables.
     private var standardSize: CGSize
@@ -315,6 +324,16 @@ open class YHSwifter: NSObject {
         }
         
         return response
+    }
+    
+    public func downloadData(_ urlString: String) async throws -> Data {
+        let afResponse = await AF.download(urlString).validate().serializingData().response
+        switch afResponse.result {
+        case .success(let data):
+            return data
+        case .failure(let afError):
+            throw YHError(type: .invalidRequest, desc: afError.localizedDescription)
+        }
     }
     
     // MARK: - Layout Methods
