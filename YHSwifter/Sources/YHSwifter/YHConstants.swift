@@ -37,19 +37,26 @@ public struct YHHttpResponse<T: Decodable> {
     public let error: YHError?
 }
 
-public struct YHError: Error {
+public struct YHError: Error, LocalizedError {
+    public var errorDescription: String? {
+        return self.desc
+    }
+    
+    @frozen
     public enum type: Sendable{
         case objectIsNil(String)
         case invalidRequest
         case invalidURLString
         case invalidJsonData
         case failToMakeHTTPCookie
+        case failConvertedDataToUIImage
         case missingRequiredHTTPCookiePropertie(String)
     }
     
     public let type: type
     public let desc: String
     public static let unknown = -99999
+    
     
     public init(type: type, desc: String) {
         self.type = type
