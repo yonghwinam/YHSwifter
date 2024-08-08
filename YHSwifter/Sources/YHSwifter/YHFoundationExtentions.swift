@@ -44,6 +44,14 @@ extension Data {
         
         return jsonString
     }
+    
+    public func toUIImage() throws -> UIImage {
+        guard let uiImage = UIImage(data: self) else {
+            throw YHError(type: .failConvertedDataToUIImage, desc: "Fail to converted data to UIImage!")
+        }
+        
+        return uiImage
+    }
 }
 
 extension Dictionary {
