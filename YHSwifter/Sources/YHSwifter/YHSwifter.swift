@@ -147,9 +147,16 @@ open class YHSwifter: NSObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: execute)
     }
     
-    public func urlQuery(_ parameters: [String: Any]) -> String {
+    @MainActor
+    public func addImageToCache(_ image: UIImage, _ forKey: String) {
+        cachedImages.setObject(image, forKey: forKey as NSString)
+    }
+    
+    @MainActor
+    public func cahcedImage(_ forKey: String) -> UIImage? {
+        guard let image = cachedImages.object(forKey: forKey as NSString) else { return nil }
         
-        return ""
+        return image
     }
     
     // MARK: - HTTP Client

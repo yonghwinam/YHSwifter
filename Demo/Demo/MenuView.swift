@@ -28,8 +28,15 @@ struct MenuView: View {
             }
             .navigationTitle("YHSwifter Demo")
             .navigationDestination(for: MenuItem.self) { menuItem in
-                DetailImage()
-                    .navigationTitle(menuItem.name)
+                if menuItem.name == "YHImage" {
+                    DetailImage()
+                        .navigationTitle(menuItem.name)
+                }
+                if menuItem.name == "YHAsyncImage" {
+                    DetailAsyncImage(urlString: PreviewResources.imageUrl2)
+                        .navigationTitle(menuItem.name)
+                }
+                
             }
         }
     }

@@ -6,13 +6,19 @@
 //
 
 import SwiftUI
+import YHSwifter
 
 struct DetailAsyncImage: View {
+    var urlString: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        YHAsyncImage(urlString, 300, 300, .fit) {
+            Color.yellow
+        }
     }
 }
 
 #Preview {
-    DetailAsyncImage()
+    
+    DetailAsyncImage(urlString: "https://picsum.photos/id/1/500/333")
 }

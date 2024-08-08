@@ -107,4 +107,14 @@ struct DemoTests {
         let result = dic.toURLQuery()
         YHDebugLog("result: \(result)")
     }
+    
+    @Test func cachedImg() async throws {
+        let uiImage = UIImage(named: "img1.jpg")!
+        YHDebugLog("image size: \(uiImage.size)")
+        
+        await YH.addImageToCache(uiImage, "img1")
+        
+        let cachedImage = await YH.cahcedImage("img1")
+        #expect(cachedImage != nil)
+    }
 }

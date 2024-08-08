@@ -50,11 +50,22 @@ public struct YHAsyncImage<Content: View>: View {
                 .opacity(self.opacity)
         }
         .task {
-            do {
-                let imageData = try await YH.downloadData(urlString)
-                self.uiImage = try imageData.toUIImage()
-            } catch {
-                YHErrorLog(error.localizedDescription)
+            if let cachedImage = YH.cahcedImage(self.urlString) {
+                /// Set the cached image if it has been added to the cache before
+                self.uiImage = cachedImage
+            } else {
+                
+                do {
+                    /// Download image data
+                    let imageData = try await YH.downloadData(urlString)
+                    /// Converting data to image
+                    self.uiImage = try imageData.toUIImage()
+                    YHDebugLog("Add image to cache")
+                    /// Add image to cache
+                    YH.addImageToCache(self.uiImage, urlString)
+                } catch {
+                    YHErrorLog(error.localizedDescription)
+                }
             }
         }
     }
