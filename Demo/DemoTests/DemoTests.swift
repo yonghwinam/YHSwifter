@@ -117,4 +117,23 @@ struct DemoTests {
         let cachedImage = await YH.cahcedImage("img1")
         #expect(cachedImage != nil)
     }
+    
+    @Test func floatToString() async throws {
+        let floatNo = 3.123456789
+        
+        YHDebugLog(swifter.toString(nil))
+        #expect(swifter.toString(nil) == "0")
+        
+        YHDebugLog(swifter.toString(floatNo, 1))
+        #expect(swifter.toString(floatNo, 1) == "3.1")
+        
+        YHDebugLog(swifter.toString(floatNo, 2))
+        #expect(swifter.toString(floatNo, 2) == "3.12")
+        
+        YHDebugLog(swifter.toString(floatNo, 3))
+        #expect(swifter.toString(floatNo, 3) == "3.123")
+        
+        YHDebugLog(swifter.toString(floatNo))
+        #expect(swifter.toString(floatNo) == "\(floatNo)")
+    }
 }

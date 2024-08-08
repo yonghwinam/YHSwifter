@@ -159,6 +159,14 @@ open class YHSwifter: NSObject {
         return image
     }
     
+    public func toString(_ float: CGFloat?, _ decimalCount: Int = .zero) -> String {
+        if float == nil { return "0" }
+        
+        if decimalCount == .zero { return "\(float!)" }
+        
+        return String(format: "%.\(decimalCount)f", float!)
+    }
+    
     // MARK: - HTTP Client
     public func request<T: Decodable>(_ urlString: String,
                                       method: HTTPMethod = .post,
