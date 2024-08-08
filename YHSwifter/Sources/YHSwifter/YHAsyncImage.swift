@@ -51,7 +51,7 @@ public struct YHAsyncImage<Content: View>: View {
         }
         .task {
             if let cachedImage = YH.cahcedImage(self.urlString) {
-                YHDebugLog("🤭 Set cached image.")
+//                YHDebugLog("🤭 Set cached image.")
                 /// Set the cached image if it has been added to the cache before
                 self.uiImage = cachedImage
             } else {
@@ -61,7 +61,7 @@ public struct YHAsyncImage<Content: View>: View {
                     let imageData = try await YH.downloadData(urlString)
                     /// Converting data to image
                     self.uiImage = try imageData.toUIImage()
-                    YHDebugLog("Add image to cache")
+//                    YHDebugLog("Add image to cache")
                     /// Add image to cache
                     YH.addImageToCache(self.uiImage, urlString)
                 } catch {
