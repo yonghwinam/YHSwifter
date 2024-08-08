@@ -8,22 +8,22 @@
 import SwiftUI
 import YHSwifter
 
-struct User: Codable {
-    var name: String?
-    var age: Int?
-}
-
 struct ContentView: View {
-    let swifter = YHSwifter()
-    
     var body: some View {
-        VStack {
-            Text("Hello Swifter!")
+        let urlString = "https://pbs.twimg.com/media/GULdqNcWkAADIOI?format=jpg&name=900x900"
+    
+        YHAsyncImage(urlString, radious: 10) {
+            Color.yellow
         }
-        .padding()
+        
+        YHImage("img2", 200, 200, .fit, radious: 9) {
+            Color.yellow
+        }
     }
 }
 
 #Preview {
+    let urlString = "https://pbs.twimg.com/media/GULdqNcWkAADIOI?format=jpg&name=900x900"
+    let uiImage = UIImage(named: "img1.jpg")
     ContentView()
 }

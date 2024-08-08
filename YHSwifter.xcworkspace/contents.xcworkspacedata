@@ -5,6 +5,9 @@
       location = "group:YHSwifter.xcworkspace">
    </FileRef>
    <FileRef
+      location = "group:../../SM-PROJECT/FanBook_iOS/FanBook_SwiftUI/FanBook_SwiftUI.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:YHSwifter">
    </FileRef>
    <FileRef

@@ -1,14 +1,15 @@
 //
-//  SwiftUIView.swift
+//  YHAsyncImage.swift
 //  YHSwifter
 //
-//  Created by Yonghwi on 8/8/24.
+//  Created by Yonghwi on 8/7/24.
 //
 
 import SwiftUI
 
-public struct YHImage<Content: View>: View {
-    private var name: String
+public struct YHAsyncImage<Content: View>: View {
+    
+    private var urlString: String = ""
     private var width: CGFloat = .zero
     private var height: CGFloat = .zero
     private var contentMode: ContentMode = .fill
@@ -16,14 +17,17 @@ public struct YHImage<Content: View>: View {
     private var opacity: CGFloat = 1.0
     private let placeholder: Content
     
-    public init(_ name: String,
+    @State private var uiImage: UIImage = UIImage()
+    
+    public init(_ urlString: String?,
                 _ width: CGFloat = .zero,
                 _ height: CGFloat = .zero,
                 _ contentMode: ContentMode = .fill,
                 radious: CGFloat = .zero,
-                opacity: CGFloat = 1.0, @ViewBuilder placeholder: () -> Content = {EmptyView()}) {
+                opacity: CGFloat = 1.0,
+                @ViewBuilder placeholder: (() -> Content) = { EmptyView() }) {
         
-        self.name = name
+        if urlString != nil { self.urlString = urlString! }
         self.radious = radious
         self.opacity = opacity
         self.width = width
@@ -34,16 +38,24 @@ public struct YHImage<Content: View>: View {
     
     public var body: some View {
         VStack(spacing: .zero) {
-            Image(self.name)
+            Image(uiImage: uiImage)
                 .resizable()
                 .aspectRatio(contentMode: self.contentMode)
                 .frame(width: self.width != .zero ? self.width : .infinity,
                        height: self.height != .zero ? self.height : .infinity)
-                .opacity(self.opacity)
                 .background(content: {
                     self.placeholder
                 })
                 .clipShape(RoundedRectangle(cornerRadius: self.radious))
+                .opacity(self.opacity)
+        }
+        .task {
+            do {
+                let imageData = try await YH.downloadData(urlString)
+                self.uiImage = try imageData.toUIImage()
+            } catch {
+                YHErrorLog(error.localizedDescription)
+            }
         }
     }
 }
